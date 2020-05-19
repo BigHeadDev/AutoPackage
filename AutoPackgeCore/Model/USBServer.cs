@@ -43,6 +43,7 @@ namespace AutoPackgeCore.Model {
             if (signDevice!=null) {
                 switch (signDevice.Status) {
                     case DeviceStatus.Connected:
+                        result = true;
                         error = "证书已经被连接了，不用再次连接";
                         break;
                     case DeviceStatus.Shared:

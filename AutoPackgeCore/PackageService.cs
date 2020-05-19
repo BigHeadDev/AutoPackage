@@ -52,7 +52,6 @@ namespace AutoPackgeCore {
 
                         string issText = File.ReadAllText(project.VersionIssSource);
                         var changeIssTextResult = SetVersionTool(issText, version);
-
                         ivsConfig.OutputLog($"version.iss:\n{changeIssTextResult}");
 
                         if (string.IsNullOrEmpty(changeIssTextResult)) {
@@ -60,7 +59,7 @@ namespace AutoPackgeCore {
                         }
                         else {
                             ivsConfig.OutputLog("修改版本和日期成功");
-                            File.WriteAllText(project.VersionIssSource, changeIssTextResult);
+                            File.WriteAllText(project.VersionIssSource, changeIssTextResult,Encoding.UTF8);
                         }
                     }
                 }
@@ -77,18 +76,20 @@ namespace AutoPackgeCore {
                 Process p = new Process { StartInfo = psi };
                 //ProcessHelper.AddProcess(p);
                 p.OutputDataReceived += ((sender, e) => {
-                    ivsConfig.OutputLog(e.Data);
                     if (e.Data == null) {
                         return;
                     }
+                    UTF8Encoding encoder = new UTF8Encoding();
+                    Byte[] encodedBytes = encoder.GetBytes(e.Data);
+                    string decodedString = encoder.GetString(encodedBytes);
+                    ivsConfig.OutputLog(decodedString);
                     if (e.Data.Contains("打包完成，请手动检查生成的文件")) {
                         (sender as Process).Kill();
                         ivsConfig.ShowMsg("打包完成，请手动检查生成的文件,并检查控制台是否有错误");
-                        if (ivsConfig.DumpPackedFiles) {
+                        if (ivsConfig.JumpPackedFiles) {
                             Process.Start($@"{project.Source}\package\ProVersion\PackedFiles");
                         }
-
-                        if (ivsConfig.DumpToWeb) {
+                        if (ivsConfig.JumpToWeb) {
                             Process.Start($@"https://dist.wangxutech.com/admin");
                         }
                     }
@@ -96,7 +97,6 @@ namespace AutoPackgeCore {
                 p.Start();
                 p.BeginOutputReadLine();
                 p.WaitForExit();
-                //ProcessHelper.RemoveProcess(p);
                 return true;
             });
         }

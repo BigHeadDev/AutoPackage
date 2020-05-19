@@ -26,7 +26,7 @@ namespace PackageTest {
         
         private async void button1_Click(object sender, EventArgs e) {
             string error = "";
-            var project = new UserProject("D:\\ApowerCompress\\trunck\\src\\ApowerCompress\\ApowerCompress.csproj", "D:\\ApowerCompress\\trunck\\src");
+            var project = new UserProject("xxxxx","D:\\ApowerCompress\\trunck\\src\\ApowerCompress\\ApowerCompress.csproj", "D:\\ApowerCompress\\trunck\\src");
             if (CertificateSerive.StartSignServer(out error)) {
                 var connected = await CertificateSerive.Connect();
                 if (!connected) {
@@ -43,8 +43,8 @@ namespace PackageTest {
     }
     public class S :  IVSConfig {
 
-        public bool DumpToWeb { get; set; } = true;
-        public bool DumpPackedFiles { get; set; } = true;
+        public bool JumpToWeb { get; set; } = true;
+        public bool JumpPackedFiles { get; set; } = true;
         public string USBToolClientPath { get; set; } = "";
         public string SignServerPath { get; set; }
         public string ServerIP { get; set; }

@@ -19,6 +19,10 @@ namespace AutoPackgeCore {
         public static async Task<bool> Connect() {
             string msg = "";
             bool connected = true;
+            if (string.IsNullOrEmpty(ivsConfig.USBToolClientPath)|| string.IsNullOrEmpty(ivsConfig.ServerIP) || string.IsNullOrEmpty(ivsConfig.ServerPort)) {
+                ivsConfig.ShowMsg("请在 工具-选项-自动打包 中填写正确的USB客户端，服务器IP和端口！");
+                return false;
+            }
             if (usbNetwork.AddServer()) {
                 int checkTime = 0;
                 while (!usbNetwork.GetServerAvailable()) {
@@ -32,7 +36,7 @@ namespace AutoPackgeCore {
                 }
                 ivsConfig.OutputLog("连接服务器成功");
                 if (usbNetwork.ConnectSafeNetDevice(out msg)) {
-                    ivsConfig.OutputLog("连接证书成功");
+                    ivsConfig.OutputLog(msg);
                 }
                 else {
                     ivsConfig.ShowMsg($"连接证书失败，{msg}");

@@ -6,9 +6,9 @@ using System.Text;
 namespace AutoPackgeCore {
     public interface IVSConfig {
         
-        bool DumpToWeb { get; set; }
+        bool JumpToWeb { get; set; }
         
-        bool DumpPackedFiles { get; set; }
+        bool JumpPackedFiles { get; set; }
         
         string USBToolClientPath { get; set; }
         

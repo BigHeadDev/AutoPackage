@@ -90,15 +90,14 @@ namespace AutoPackage2019 {
             var solution = dte2.Solution;
             var solutionName = Path.GetFileName(solution.FullName);//解决方案名称
             if (!string.IsNullOrEmpty(solutionName)) {
-                AutoPackage2019Package.VSOutput.OutputStringThreadSafe($"【{DateTime.Now}】:自动打包---{solutionName}\r\n");
                 var projects = (EnvDTE.UIHierarchyItem[])dte2?.ToolWindows.SolutionExplorer.SelectedItems;
                 var project = projects[0].Object as EnvDTE.Project;
                 string projectFullName = project.FullName;
                 string solutionDir = Path.GetDirectoryName(solution.FullName);
-                UserProject userProject = new UserProject(projectFullName, solutionDir);
+                UserProject userProject = new UserProject(solutionName, projectFullName, solutionDir);
+                AutoPackage2019Package.VSOutput.OutputStringThreadSafe($"【{DateTime.Now}】:自动打包开始---{solutionName}\r\n");
                 InnerExcuteAsync(userProject);
-            }
-            else {
+            } else {
                 VsShellUtilities.ShowMessageBox(
                     this.package,
                     "请先打开一个解决方案！",
@@ -113,12 +112,12 @@ namespace AutoPackage2019 {
             if (CertificateSerive.StartSignServer(out error)) {
                 var connected = await CertificateSerive.Connect();
                 if (!connected) {
+                    AutoPackage2019Package.VSOutput.OutputStringThreadSafe($"【{DateTime.Now}】:自动打包结束---{project.SolutionName}\r\n");
                     return;
                 }
                 await PackageService.Pack(project);
                 CertificateSerive.DisConnect();
-            }
-            else {
+            } else {
                 VsShellUtilities.ShowMessageBox(
                     this.package,
                     $"自动签名工具启动失败，{error}",
@@ -127,6 +126,7 @@ namespace AutoPackage2019 {
                     OLEMSGBUTTON.OLEMSGBUTTON_OK,
                     OLEMSGDEFBUTTON.OLEMSGDEFBUTTON_FIRST);
             }
+            AutoPackage2019Package.VSOutput.OutputStringThreadSafe($"【{DateTime.Now}】:自动打包结束---{project.SolutionName}\r\n");
         }
     }
 }

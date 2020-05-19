@@ -74,27 +74,27 @@ namespace AutoPackage2019 {
         [Category("打包工具")]
         [DisplayName("是否自动跳转发布系统")]
         [Description("https://dist.wangxutech.com/admin")]
-        public bool DumpToWeb { get; set; } = true;
+        public bool JumpToWeb { get; set; } = true;
 
         [Category("打包工具")]
         [DisplayName("是否自动打开文件夹")]
-        [Description("")]
-        public bool DumpPackedFiles { get; set; } = true;
+        [Description("注意把控制版本的iss改为version.iss")]
+        public bool JumpPackedFiles { get; set; } = true;
 
         [Category("打包证书")]
-        [DisplayName("USB Over Network安装路径")]
+        [DisplayName("USB Client的usbclncmd.exe完整路径")]
         [Description("连接局域网分享的USB工具")]
         public string USBToolClientPath { get; set; } = "";
 
         [Category("打包证书")]
-        [DisplayName("SignServer安装路径")]
+        [DisplayName("SignServer.exe的完整路径")]
         [Description("自动输入密码的SignServer签名工具")]
         public string SignServerPath { get; set; }
 
         [Category("打包证书")]
         [DisplayName("服务器IP地址")]
         [Description("USB Over Network的服务器IP")]
-        public string ServerIP { get; set; }
+        public string ServerIP { get; set; } = "192.168.0.211";
 
         [Category("打包证书")]
         [DisplayName("服务器的端口")]

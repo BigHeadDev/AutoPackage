@@ -3,18 +3,21 @@
     <Metadata>
         <Identity Id="AutoPackage2019.5905c4b3-2d6d-4905-8c94-a363bf89fe8d" Version="1.0" Language="zh-Hans" Publisher="Apowersoft" />
         <DisplayName>AutoPackage2019</DisplayName>
-        <Description>Empty VSIX Project.</Description>
+        <Description xml:space="preserve">集成了自动签名，自动打包，自动断开
+注意：使用前在 选项-自动打包 中设置一系列的全路径，IP和端口集成了jia</Description>
         <MoreInfo>http://www.apowersoft.cn</MoreInfo>
-        <Icon>Resources\AutoPackageCommand.png</Icon>
-        <PreviewImage>Resources\AutoPackageCommand.png</PreviewImage>
+        <ReleaseNotes>第一次提交：自动连接证书，自动打开签名工具，自动打包，自动断开</ReleaseNotes>
+        <Icon>Resources\Apowersoft.ico</Icon>
+        <PreviewImage>Resources\Apowersoft.ico</PreviewImage>
+        <Tags>Package,InnoSetup,USB Over Network</Tags>
     </Metadata>
     <Installation>
         <InstallationTarget Id="Microsoft.VisualStudio.Community" Version="[16.0, 17.0)" />
     </Installation>
     <Dependencies>
         <Dependency Id="Microsoft.Framework.NDP" DisplayName="Microsoft .NET Framework" d:Source="Manual" Version="[4.7.2,)" />
-      <Dependency Id="Microsoft.VisualStudio.MPF.16.0" DisplayName="Visual Studio MPF 16.0" d:Source="Installed" Version="[16.0,17.0)" />
-  </Dependencies>
+        <Dependency Id="Microsoft.VisualStudio.MPF.16.0" DisplayName="Visual Studio MPF 16.0" d:Source="Installed" Version="[16.0,17.0)" />
+    </Dependencies>
     <Prerequisites>
         <Prerequisite Id="Microsoft.VisualStudio.Component.CoreEditor" Version="[16.0,17.0)" DisplayName="Visual Studio core editor" />
     </Prerequisites>
